@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import os
+
+import time
+
 import config
 import numpy as np
 
@@ -28,7 +32,7 @@ def read_images(test=False):
     :return: 返回list，存储10张图片的数组
     """
     try:
-        for i in range(1, 11):
+        for i in range(10):
             if test:
                 samples.append(np.asarray(Image.open(os.path.join("static\\images", str(i) + ".jpg"))))
             else:
@@ -38,21 +42,37 @@ def read_images(test=False):
         logger.error(ex.message)
 
 
-def calculate_distance(src):
+def calculate_distance(src):  # FIXME
     """
     计算输入图像与预置图片的欧式距离
-    :param src:
+    :param src: 输入图像
     :return: 返回距离最短的图片编号
     """
     test = np.asarray(Image.open(src))
     result = []
-    for sample in samples:
-        result.append((test - sample) ** 2)
-    result.sort()
-    print result
-    return result[0]
+    for i in range(len(samples)):
+        result.append([i, np.linalg.norm(test - samples[i])])
+    result.sort(key=lambda d: d[1])
+    # print result
+    return result[0][0]
+
+
+def resize_image(src, dst, w, h):
+    """
+    修改图片尺寸
+    :param src: 源图片路径
+    :param dst: 新图片路径
+    :param w: 新宽度
+    :param h: 新高度
+    :return: 新文件名
+    """
+    img = Image.open(src)
+    out = img.resize((w, h))
+    out.save(dst)
 
 
 if __name__ == '__main__':
     read_images(test=True)
-    print calculate_distance(os.path.join("temp", "test.jpg"))
+    test_image = os.path.join("temp", "test3.jpg")
+    # resize_image(test_image, test_image, 960, 540)
+    print calculate_distance(test_image)

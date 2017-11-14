@@ -4,12 +4,43 @@
 {% block title %}DAM: Euclid Metric{% endblock %}
 
 {% block head %}
-
+    <link type="text/css" href="{{ url_for('static', filename='css/euclid.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    <h1>Hello</h1>
-    <h1>Hello</h1>
+    <div class="row no-gutters">
+        <div class="col-10">
+            <div class="row no-gutters">
+                <div class="col-10">
+                    <div class="search-box">
+                        <input title="Upload your image here" placeholder="Upload your image here and click <Calculate>" type="file">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="search-button">
+                        <input title="Calculate" value="Calculate" type="submit">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-2">
+            <img src="{{ url_for('static', filename="images/0.jpg") }}" alt="候选图0" class="img-fluid">
+        </div>
+        <div class="col-2">
+            <img src="{{ url_for('static', filename="images/1.jpg") }}" alt="候选图1" class="img-fluid">
+        </div>
+        <div class="col-2">
+            <img src="{{ url_for('static', filename="images/2.jpg") }}" alt="候选图2" class="img-fluid">
+        </div>
+        <div class="col-2">
+            <img src="{{ url_for('static', filename="images/3.jpg") }}" alt="候选图3" class="img-fluid">
+        </div>
+        <div class="col-2">
+            <img src="{{ url_for('static', filename="images/4.jpg") }}" alt="候选图4" class="img-fluid">
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

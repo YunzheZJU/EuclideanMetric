@@ -1,0 +1,10 @@
+.search-box {
+    height: 2rem;
+    border: 1px solid #000000;
+}
+
+.search-button {
+    height: 2rem;
+    background-color: #20c997;
+    border-radius: 2px;
+}
