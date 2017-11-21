@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-import hashlib
 import os
-
-import time
-
 import config
 import numpy as np
 
