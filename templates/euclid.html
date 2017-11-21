@@ -8,41 +8,36 @@
 {% endblock %}
 
 {% block content %}
-    <div class="row no-gutters mt-5rem">
+    <div class="row no-gutters justify-content-center mt-5rem mb-5">
         <div class="col-10">
-            <div class="row no-gutters">
-                <div class="col-10">
-                    <div class="search-box">
-                        <input title="Upload your image here" placeholder="Upload your image here and click <Calculate>" type="file">
+            <div>
+                <form class="row no-gutters" id="upload-file" method="post" enctype="multipart/form-data">
+                    <div class="col-10 px-1 py-1 file-box">
+                        <a class="file-hint">请在此处上传图片，然后单击"匹配"
+                            <input class="file-input" type="file" size="2" id="input_file" name="image">
+                        </a>
                     </div>
-                </div>
-                <div class="col-1">
-                    <div class="search-button">
-                        <input title="Calculate" value="Calculate" type="submit">
+                    <div class="col-1 px-1 py-1 btn-box">
+                        <a class="btn-text mx-auto d-block w-100 text-center" id="submit">匹配</a>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-2">
-            <img src="{{ url_for('static', filename="images/0.jpg") }}" alt="候选图0" class="img-fluid">
-        </div>
-        <div class="col-2">
-            <img src="{{ url_for('static', filename="images/1.jpg") }}" alt="候选图1" class="img-fluid">
-        </div>
-        <div class="col-2">
-            <img src="{{ url_for('static', filename="images/2.jpg") }}" alt="候选图2" class="img-fluid">
-        </div>
-        <div class="col-2">
-            <img src="{{ url_for('static', filename="images/3.jpg") }}" alt="候选图3" class="img-fluid">
-        </div>
-        <div class="col-2">
-            <img src="{{ url_for('static', filename="images/4.jpg") }}" alt="候选图4" class="img-fluid">
+        <div class="col-11">
+            <div class="row justify-content-center">
+                {% for x in range(10) %}
+                <div class="img_to_match col-xl-2 col-lg-3 col-md-4 col-sm-5 col-xs-6 px-2 py-2" id="img_{{ x }}">
+                    <img src="{{ url_for('static', filename="images/%d.jpg" % x) }}" alt="候选图{{ x }}" class="img-fluid">
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}
 
 {% block scripts %}
-
+    <script type="text/javascript" src="{{ url_for('static', filename='include/jquery.form.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='scripts/euclid.js') }}"></script>
 {% endblock %}

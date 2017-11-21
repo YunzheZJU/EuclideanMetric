@@ -19,6 +19,7 @@ app.config.update(dict(
 photos = UploadSet('photos', IMAGES)
 configure_uploads(app, photos)
 patch_request_class(app)  # 文件大小限制，默认为16MB
+read_images(test=True)
 
 
 @app.route('/')
@@ -29,6 +30,7 @@ def euclid():
 @app.route('/calculate', methods=['POST'])
 def calculate():
     result = -1
+    print request.files
     if 'image' in request.files:
         # 保存文件至临时目录
         m = hashlib.md5()

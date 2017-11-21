@@ -42,37 +42,40 @@ def read_images(test=False):
         logger.error(ex.message)
 
 
-def calculate_distance(src):  # FIXME
+def calculate_distance(file_in_temp_folder):
     """
     计算输入图像与预置图片的欧式距离
-    :param src: 输入图像
+    :param file_in_temp_folder: 输入图像
     :return: 返回距离最短的图片编号
     """
-    test = np.asarray(Image.open(src))
+    src = os.path.join("temp", file_in_temp_folder)
+    dst = resize_image(src, 960, 540)
+    test = np.asarray(Image.open(dst))
     result = []
     for i in range(len(samples)):
         result.append([i, np.linalg.norm(test - samples[i])])
     result.sort(key=lambda d: d[1])
-    # print result
+    print result
     return result[0][0]
 
 
-def resize_image(src, dst, w, h):
+def resize_image(src, w, h):
     """
-    修改图片尺寸
+    修改图片尺寸并保存为png
     :param src: 源图片路径
-    :param dst: 新图片路径
     :param w: 新宽度
     :param h: 新高度
-    :return: 新文件名
+    :return: 新文件路径
     """
     img = Image.open(src)
     out = img.resize((w, h))
+    dst = src.split(".")[0] + ".png"
     out.save(dst)
+    return dst
 
 
 if __name__ == '__main__':
     read_images(test=True)
-    test_image = os.path.join("temp", "test3.jpg")
-    # resize_image(test_image, test_image, 960, 540)
-    print calculate_distance(test_image)
+    test_image = "test3.jpg"
+    converted_image = resize_image(test_image, 960, 540)
+    print calculate_distance(converted_image)
